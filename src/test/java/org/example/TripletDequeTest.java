@@ -1,17 +1,20 @@
 package org.example;
 
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.Deque;
+import java.util.NoSuchElementException;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class TripletDequeTest {
-    private Deque<String> tQueue = new TripletDeque<>();
+    private Deque<String> tQueue= new TripletDeque<>();
     private Containerable cQueue = (Containerable) tQueue;
+
     @Test
-    void addFirst() {
+    void addTest(){
         tQueue.addFirst("one");
         tQueue.addFirst("two");
         assertEquals("two", tQueue.getFirst());
@@ -19,7 +22,11 @@ class TripletDequeTest {
         tQueue.addFirst("three");
         assertEquals("three", tQueue.getFirst());
         assertEquals("one", tQueue.getLast());
-
+        tQueue.addFirst("four");
+        tQueue.addLast("five");
+        tQueue.addFirst("six");
+        assertEquals("six", tQueue.getFirst());
+        assertEquals("five", tQueue.getLast());
     }
 
     @Test
@@ -30,6 +37,7 @@ class TripletDequeTest {
         assertEquals("n_14", tQueue.getFirst());
         assertEquals("n_0", tQueue.getLast());
     }
+
     @Test
     void iterTest(){
         for (int i=0; i < 15 ;i++){
@@ -40,6 +48,7 @@ class TripletDequeTest {
             System.out.println(s);
         }
     }
+
     @Test
     void removeTest(){
         for (int i=0; i < 15 ;i++){
@@ -194,7 +203,6 @@ class TripletDequeTest {
         Object[] cntr = cQueue.getContainerByIndex(0);
         Assertions.assertTrue(cntr[0] != null && cntr[cntr.length-1] != null);
         tQueue.remove("2");
-
         Assertions.assertTrue(cntr[0] == null || cntr[cntr.length-1] == null);
 
         for (int i=1; i < cntr.length-2; i++){
@@ -225,6 +233,11 @@ class TripletDequeTest {
 
         Assertions.assertTrue(cntr!=null && cntr1 != null && cntr2 ==null);
 
+    }
+
+    @BeforeEach
+    void beforeEach(){
+        tQueue.clear();
     }
 
 }
